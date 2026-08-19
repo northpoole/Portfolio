@@ -1,0 +1,137 @@
+# CLAUDE.md
+
+Guidance for AI assistants working in this repository.
+
+## What this is
+
+A single-page personal engineering portfolio for **Trevor North** (mechanical
+engineering student, University of Missouri). The entire site is one
+self-contained file: **`index.html`**. There is no build step, no framework, no
+package manager, no backend, and no dependencies to install.
+
+- **Static site.** Open `index.html` in a browser to view it — that is the whole
+  app. Nothing needs to be compiled or served (though a local static server like
+  `python3 -m http.server` is fine for previewing).
+- **Everything is inline.** HTML, CSS (in one `<style>` block in `<head>`), and
+  JavaScript (one `<script>` before `</body>`) all live in `index.html`.
+- **Images are embedded as base64 data URIs.** This is why the file is ~4 MB
+  despite being only ~900 lines. There is no `images/` directory — every
+  `<img src="data:image/...;base64,...">` carries its own binary inline.
+
+## Repository layout
+
+```
+Portfolio/
+├── index.html   ← the entire site (HTML + CSS + JS + embedded images)
+└── CLAUDE.md    ← this file
+```
+
+That's it. Do not expect other source files, config, or tooling.
+
+## Structure of `index.html`
+
+Read top to bottom, the file is organized as:
+
+1. **`<head>`** — meta tags, an author-facing "HOW TO ADD NEW ITEMS" comment
+   block, Google Fonts (`Archivo Black`, `IBM Plex Mono`, `IBM Plex Sans`), and
+   one big `<style>` block.
+2. **CSS** — a `:root` block of design tokens (custom properties), then component
+   sections each marked with a `/* ---------- name ---------- */` comment:
+   `top bar`, `shell`, `hero / title block`, `sheets`, `tabs`, `record rail`,
+   `plates`, `awards`, `text-only plate`, `empty state`, `role card`,
+   `lightbox`, `footer`.
+3. **`<body>`** — marked out with `<!-- ===== SECTION ===== -->` banners:
+   - **Topbar** — sticky identity bar.
+   - **Hero** — name, photo, lede, and a `titleblock` of key/value fields.
+   - **Sheet 01 — Academic** (`#academic`) — three tab panels: Honors & Awards,
+     Hands-On Projects, Conceptual Projects.
+   - **Sheet 02 — Professional** (`#professional`) — a `role` card plus two tab
+     panels: Engineering (currently empty, shows an `empty` state) and
+     Automation.
+   - **Lightbox** — a hidden `<div id="lb">` dialog for viewing images full-size.
+4. **`<script>`** — a single IIFE with two behaviors: accessible tabs (roving
+   focus + arrow keys) and the image lightbox (open on plate click, close on
+   Esc / outside click).
+
+## Core content conventions
+
+The most common edit is adding or changing a portfolio item. Two block types:
+
+**Image item — `<figure class="plate">`** (the primary pattern, ~21 of them):
+```html
+<figure class="plate">
+  <button class="plate-btn" data-cap="Caption shown in lightbox">
+    <img src="data:image/jpeg;base64,..." alt="Descriptive alt text">
+  </button>
+  <figcaption class="plate-cap">
+    <span class="cap-idx mono"><span>A-01</span></span>
+    <b class="cap-title">Item name</b>
+    <span class="cap-meta mono">Date · detail line</span>
+  </figcaption>
+</figure>
+```
+Per the in-file guide, adding an item = copy an existing plate and change the
+`<img src>`, the `cap-title`, and the `cap-meta`. The `plate-btn` wraps the image
+so JS can open it in the lightbox; keep `data-cap` in sync with the caption.
+
+**Text award — `<li class="award">`** inside `<ul class="awards">`: an
+`award-tag`, a `cap-title`, a `cap-meta`, and a `<p>` description. Used for
+honors that have no image.
+
+Other conventions:
+- **Tab counts.** Each tab button has a `<span class="count">N</span>` that states
+  how many items are in its panel. Update this number when you add or remove
+  items in that panel.
+- **Empty panels** use the `empty` block (e.g. the Professional → Engineering
+  panel), with `empty-code`, an `<h4>`, and guidance text.
+- **`.mono` class** applies the IBM Plex Mono font — used for meta/label text.
+- **`hidden` attribute** on non-active tab panels is toggled by the JS; the first
+  panel in each tablist is visible, the rest carry `hidden`.
+
+## Design system
+
+Colors, spacing, and other design values are CSS custom properties on `:root`
+(e.g. `--ink`, `--graphite`, `--steel`, `--brass`, `--panel`, `--sp`). Reuse
+these tokens rather than hardcoding new hex values, so the "technical drawing /
+blueprint" aesthetic stays consistent. The look is intentionally engineering-
+drawing themed: grid background, brass accent, monospace metadata, sheet/plate
+terminology.
+
+## Accessibility — preserve it
+
+The markup is deliberately accessible; keep it that way when editing:
+- Tabs use `role="tablist"` / `role="tab"` / `role="tabpanel"` with
+  `aria-selected`, `aria-controls`, `aria-labelledby`, and roving `tabindex`.
+- The lightbox is `role="dialog" aria-modal="true"` and manages focus
+  (focuses close button on open, restores focus on close).
+- Every `<img>` needs meaningful `alt` text.
+- `prefers-reduced-motion` is respected in CSS.
+
+## Editing guidance
+
+- **Make all changes in `index.html`.** There is nowhere else to put code.
+- **Don't add a build system, framework, or dependencies** unless explicitly
+  asked — the single-file, zero-dependency design is the point.
+- When adding images, embed them as base64 data URIs to match the existing
+  pattern (the site is meant to be a portable single file). Be aware this grows
+  the file; large images noticeably increase load size.
+- The `Rev 2026.07` string appears in the topbar-area eyebrow and footer; the
+  content is periodically refreshed, so keep revision markers consistent if you
+  bump them.
+- Match the surrounding indentation and the existing comment style
+  (`<!-- ===== ... ===== -->` banners, `/* ---------- ... ---------- */` CSS
+  section markers).
+
+## Verifying changes
+
+There are no tests or linters. To verify:
+1. Open `index.html` in a browser (or serve it locally).
+2. Check that tabs switch, images open in the lightbox and close via Esc/outside
+   click, and layout holds at mobile and desktop widths.
+3. Confirm tab `count` numbers still match the number of items shown.
+
+## Git workflow
+
+- Remote: `https://github.com/northpoole/Portfolio` (default branch `main`).
+- Commit with clear, descriptive messages. Only open a pull request when the user
+  explicitly asks for one.
