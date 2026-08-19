@@ -53,6 +53,47 @@ Read top to bottom, the file is organized as:
    focus + arrow keys) and the image lightbox (open on plate click, close on
    Esc / outside click).
 
+## Current portfolio contents
+
+Snapshot of the work currently on the site (as of Rev 2026.07). Use this as a
+map of what already exists before adding or editing items; keep it current when
+the content changes.
+
+**Hero / identity.** Trevor North — Mechanical Engineering, University of
+Missouri (Mizzou), based in St. Louis, MO. Engineering & Automation intern in
+defense/aerospace. Graduating May 2027, 3.34 GPA, Dean's List 5 semesters, open
+to 2027 roles.
+
+**Sheet 01 — Academic** (`#academic`)
+
+- *Honors & Awards* (tab count 6): Curator's Scholar Award (text `award` entry),
+  plus five Dean's List plates — High Dean's List Spring 2026 (A-01), Dean's List
+  Spring 2025 (A-02), Dean's List Fall 2024 (A-03), High Dean's List Spring 2024
+  (A-04), Dean's List Fall 2023 (A-05). A `rail` of chips summarizes the same
+  record.
+- *Hands-On Projects* (tab count 5): Turned shaft & milled block — Machining Lab
+  (B-01); Breadboard circuit build (B-02), Instrumentation bench setup (B-03),
+  Signal measurement (B-04), Bench measurement (B-05) — all Instruments &
+  Measurements Lab.
+- *Conceptual Projects* (tab count 2): Gearbox assembly drawing (C-01) and
+  Two-stage gear train model (C-02) — Gear Box Assembly Project for Machine
+  Element Design.
+
+**Sheet 02 — Professional** (`#professional`)
+
+Role card: **Riverbend Energetics** — Engineering & Automation Intern, Summer
+2026. A `[ RELEASE ]` note states that only material approved for public release
+appears here (nothing proprietary or export-controlled).
+
+- *Engineering* (tab count 0): empty — shows the "Cleared work goes here"
+  `empty` state pending release.
+- *Automation*: eight plates (E-01…E-08) — Frame sealing, Spindle guarding,
+  Pneumatic flow control, Enclosure door locks, Bracket surface prep, Stepper
+  motor assembly (NEMA 23, 23HS30-2804S · 1.9 N·m · 2.8 A), Control enclosure
+  wiring, Equipment cart fabrication. **Note:** the tab `count` currently reads
+  **9** but only 8 plates are present — the count is out of sync and should be
+  corrected to 8 (or a ninth item added) next time this panel is edited.
+
 ## Core content conventions
 
 The most common edit is adding or changing a portfolio item. Two block types:
