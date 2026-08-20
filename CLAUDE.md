@@ -190,6 +190,10 @@ memory"), before finishing:
    - **Open items** — anything unfinished or to follow up on.
 3. Commit to `main` with a message like `chat memory <YYYY-MM-DD>` and push.
 
+If more than one repository is loaded in the session, **ask the user which repo
+(or "all") the memory should be saved into** before writing — the digest belongs
+with the repo the chat concerns. With only this repo loaded, no need to ask.
+
 Only create or modify a memory file when the user explicitly asks (by saying
 "End Chat" or similar). The `memory/` directory is the store for these files.
 
