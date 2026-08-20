@@ -171,6 +171,28 @@ There are no tests or linters. To verify:
    click, and layout holds at mobile and desktop widths.
 3. Confirm tab `count` numbers still match the number of items shown.
 
+## Chat memory — the "End Chat" clause
+
+The user keeps a running memory of their chats in this repo. This is **manual,
+on request only** — never write memory automatically.
+
+When the user says **"End Chat"** (or an equivalent like "end the chat" / "save
+memory"), before finishing:
+
+1. Write a digest of the current conversation to `memory/<YYYY-MM-DD>.md`, using
+   the date the chat took place. If a file for that date already exists, append
+   the new session **below a `---` divider** — do not overwrite it.
+2. Structure the file for fast AI ingestion (it exists so a future assistant can
+   get up to speed quickly), e.g.:
+   - a one-line topic header with the date,
+   - **Requests** — a bullet list of what the user asked for,
+   - **Outcomes** — key decisions and changes made, with files touched,
+   - **Open items** — anything unfinished or to follow up on.
+3. Commit to `main` with a message like `chat memory <YYYY-MM-DD>` and push.
+
+Only create or modify a memory file when the user explicitly asks (by saying
+"End Chat" or similar). The `memory/` directory is the store for these files.
+
 ## Git workflow
 
 - Remote: `https://github.com/northpoole/Portfolio` (default branch `main`).
